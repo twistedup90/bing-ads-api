@@ -48,13 +48,19 @@ module BingAdsApi
 
 			# ClientProxy settings
 			clientProxySettings = {
-				:username => options[:username],
-				:password => options[:password],
 				:developer_token => options[:developer_token],
 				:account_id => options[:account_id],
 				:customer_id => options[:customer_id],
 				:wsdl_url => options[:wdsl] || solve_wsdl_url
 			}
+
+			# Auth settings
+			if options[:authentication_token]
+				clientProxySettings[:authentication_token] = options[:authentication_token]
+			else
+				clientProxySettings[:username] = options[:username]
+				clientProxySettings[:password] = options[:password]
+			end
 			
 			# Additionsl ClientProxy settings
 			clientProxySettings[:proxy] = options[:proxy] if options[:proxy]
